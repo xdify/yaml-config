@@ -10,6 +10,8 @@ import { isUndefined } from '@nestjs/common/utils/shared.utils';
 import get from 'lodash/get';
 import has from 'lodash/has';
 import set from 'lodash/set';
+import * as dotenv from 'dotenv';
+import fs from 'fs';
 
 type ValidatedResult<
   WasValidated extends boolean,
@@ -190,5 +192,30 @@ export class ConfigService<
     return processValue as unknown as T;
   }
 
-  private isGetOptionsObject() {}
+  private isGetOptionsObject(
+    options: Record<string, any> | undefined,
+  ): options is ConfigGetOptions {
+    return options && options?.infer && Object.keys(options).length === 1;
+  }
+
+  private updateInterpolatedEnv(propertyPath: string, value: string): void {
+    let config: ReturnType<typeof dotenv.parse> = {};
+
+    for (const envFilePath of this.envFilePaths) {
+      if (fs.existsSync(envFilePath)) {
+        config = Object.assign(
+          dotenv.parse(fs.readFileSync(envFilePath)),
+          config,
+        );
+      }
+    }
+
+    const regex = new RegExp(`\\$\\{?${propertyPath}\\}?`, 'g');
+
+    for (const [k, v] of Object.entries(config)) {
+      if (regex.test(v)) {
+        process.env[k] = v.replace(regex, value);
+      }
+    }
+  }
 }
