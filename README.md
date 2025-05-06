@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/~xaify" target="_blank"><img src="https://img.shields.io/npm/l/%40xaify%2xyaml-config?color=%23FFDEAD&label=License" alt="License" /></a>
+  <a href="https://www.npmjs.com/~xaify" target="_blank"><img src="https://img.shields.io/npm/l/%40xaify%2Fyaml-config?color=%2303A9F4&label=License" alt="License" /></a>
   <a href="https://discord.gg/lotolab" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
   <a href="https://x.com/lamborghini171" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
   <a href="https://www.npmjs.com/~xaify" target="_blank"><img src="https://img.shields.io/npm/v/%40xaify%2Fyaml-config" alt="xnest-config" /></a>
