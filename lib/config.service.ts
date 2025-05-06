@@ -138,6 +138,28 @@ export class ConfigService<
     }
 
     const validatedEnvValue = this.getFromInternalConfig(propertyPath);
+    if (!isUndefined(validatedEnvValue)) {
+      return validatedEnvValue;
+    }
+
+    const defaultValue =
+      this.isGetOptionsObject(defaultValueOrOptions as Record<string, any>) &&
+      !options
+        ? undefined
+        : defaultValueOrOptions;
+
+    if (!this._skipProcessEnv) {
+      const processEnvValue = this.getFromProcessEnv(
+        propertyPath,
+        defaultValue,
+      );
+
+      if (!isUndefined(processEnvValue)) {
+        return processEnvValue;
+      }
+    }
+
+    return defaultValue as T;
   }
 
   private getFromCache<T = any>(
